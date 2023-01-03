@@ -1,12 +1,13 @@
 
 from flask_sqlalchemy import SQLAlchemy
 # 6.✅ Import SerializerMixin from sqlalchemy_serializer
+from sqlalchemy_serializer import SerializerMixin
 
  
 db = SQLAlchemy()
 
 # 7.✅ Pass Productions the SerializerMixin
-class Production(db.Model):
+class Production(db.Model, SerializerMixin):
     __tablename__ = 'productions'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -24,12 +25,13 @@ class Production(db.Model):
 
     # 7.✅ Create a serialize rule that will help add our crew_members to the response
         # ` serialize_rules = ('-crew_members.production',)`
+    serialize_rules = ('-crew_members.production',)
 
 
     def __repr__(self):
         return f'<Production Title:{self.title}, Genre:{self.genre}, Budget:{self.budget}, Image:{self.image}, Director:{self.director},ongoing:{self.ongoing}>'
 # 8.✅ Pass CrewMember the SerializerMixin
-class CrewMember(db.Model):
+class CrewMember(db.Model, SerializerMixin):
     __tablename__ = 'crew_members'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +44,7 @@ class CrewMember(db.Model):
     
     # 8.✅ Create a serialize rule that will help add our production to the response
         # `serialize_rules = ('-production.crew_members',)`
+    serialize_rules = ('-production.crew_members',)
 
     def __repr__(self):
         return f'<Production Name:{self.name}, Role:{self.role}'

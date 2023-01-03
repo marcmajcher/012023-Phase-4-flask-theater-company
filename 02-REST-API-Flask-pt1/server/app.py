@@ -34,10 +34,10 @@ db.init_app(app)
 
 # 2.✅ Initialize the Api
     #`api = Api(app)`
-
+api = Api(app)
 
 # 3.✅ Create a Production class that inherits from Resource
-
+class Productions(Resource):
     # 4.✅ Create a GET all route
         # After building the route run the server and test it in the browser
     # def get(self):
@@ -76,7 +76,16 @@ db.init_app(app)
     #     )
 
     #     return response
-  
+    def get(self):
+     
+        production_list = [p.to_dict() for p in Production.query.all()]
+
+        response = make_response(
+            production_list,
+            200,
+        )
+
+        return response
 
     # 10.✅ Create a POST route
         # Prepare a POST request in Postman under the Body tab select form-data and fill out the body of a production request. 
@@ -104,10 +113,31 @@ db.init_app(app)
         # )
         # return response
 
+    def post(self):
+        new_production = Production(
+            title=request.form['title'],
+            genre=request.form['genre'],
+            budget=int(request.form['budget']),
+            image=request.form['image'],
+            director=request.form['director'],
+            description=request.form['description'],
+            ongoing=bool(request.form['ongoing']),
+        )
 
+        db.session.add(new_production)
+        db.session.commit()
+
+        response_dict = new_production.to_dict()
+
+        response = make_response(
+            response_dict,
+            201,
+        )
+        return response
 # 5.✅ add Productions to our api resource
     # api.add_resource(Productions, '/productions')
     # run the server and test the GET all route in the browser.
+api.add_resource(Productions, '/productions')
 
  # 10.✅ Create a GET one route
      # Build a class called ProductionByID that inherits from Resource.
@@ -124,6 +154,16 @@ db.init_app(app)
         
     #     return response
 
+class ProductionByID(Resource):
+    def get(self,id):
+        production = Production.query.filter_by(id=id).first().to_dict()
 
+        response = make_response(
+            production,
+            200
+        )
+        
+        return response
  # 11.✅ Add the new route to our api resource
     # api.add_resource(ProductionByID, '/productions/<int:id>')
+api.add_resource(ProductionByID, '/productions/<int:id>')
