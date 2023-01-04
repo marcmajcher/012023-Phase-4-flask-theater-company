@@ -24,7 +24,7 @@ class Production(db.Model, SerializerMixin):
     crew_members = db.relationship('CrewMember', backref='production')
 
     # 7.✅ Create a serialize rule that will help add our crew_members to the response
-        # ` serialize_rules = ('-crew_members.production',)`
+        
     serialize_rules = ('-crew_members.production',)
 
 
@@ -43,7 +43,7 @@ class CrewMember(db.Model, SerializerMixin):
     production_id = db.Column(db.Integer, db.ForeignKey('productions.id'))
     
     # 8.✅ Create a serialize rule that will help add our production to the response
-        # `serialize_rules = ('-production.crew_members',)`
+      
     serialize_rules = ('-production.crew_members',)
 
     def __repr__(self):
