@@ -1,4 +1,5 @@
 # Intro to Flask
+
 ## Learning Goals
 - Review Request-Response Cycle
 - Review Web Servers and WSGI/Werkzeug
@@ -19,7 +20,6 @@
     - Demonstrate Web Scraping 
 
 ## Lecture Topics
-    
 - How the Web Works
 - Web Servers
 - Creating a Flask Application
@@ -27,8 +27,4 @@
 - Flask Application Structure
 - SQLAlechmy in Flask
 - Stretch Topic: 
-- Web Scraping 
-
-
-
-
+- Web Scraping
