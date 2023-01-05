@@ -16,7 +16,7 @@
     - Demonstrate Seeding
     - Demonstrate Querying / Serving Resources
     - Demonstrate the Flask Shell
-- Stretch:
+- Stretch Goal:
     - Demonstrate Web Scraping 
 
 ## Lecture Topics
@@ -27,4 +27,4 @@
 - Flask Application Structure
 - SQLAlechmy in Flask
 - Stretch Topic: 
-- Web Scraping
+    - Web Scraping
