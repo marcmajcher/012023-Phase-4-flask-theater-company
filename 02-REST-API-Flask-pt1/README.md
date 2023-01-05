@@ -20,4 +20,3 @@
 - SQLAlchemy-Serializer
 - Serializing Relationships
 - Serializing Associations
-
