@@ -19,7 +19,11 @@ function App() {
     // This will allow us to proxy our api requests  
   // 5.3 When productions return set the productions to state
   // 6.✅ navigate to client/src/components/ProductionForm.js
-
+  useEffect(() => {
+    fetch('/productions')
+    .then(res => res.json())
+    .then(setProductions)
+  },[])
   // Bonus: async and await version
   // useEffect(async () => {
   //   const res = await fetch('/productions')

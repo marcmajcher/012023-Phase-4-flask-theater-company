@@ -5,17 +5,21 @@ from sqlalchemy_serializer import SerializerMixin
 
 # 1.✅ Import validates from sqlalchemy.orm
 
+from sqlalchemy.orm import validates
 
 db = SQLAlchemy()
-
+# nullable and unique
 class Production(db.Model, SerializerMixin):
     __tablename__ = 'productions'
-
+    #CheckConstraint is not working
+    __table_args__ = (
+        db.CheckConstraint('budget < 100'),
+    )
 
     id = db.Column(db.Integer, primary_key=True)
-# 2.✅ Add Constraints to the columns        
-    title = db.Column(db.String)
-    genre = db.Column(db.String)
+# 2.✅ Add Constraints to the columns      
+    title = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
     budget = db.Column(db.Float)
     image = db.Column(db.String)
     director = db.Column(db.String)
@@ -31,9 +35,13 @@ class Production(db.Model, SerializerMixin):
 # 3.✅ Use the validates decorator to create a validation for images
     # 3.1 pass the decorator 'image'
     # 3.2 define a validate_image method, pass it self, key and image_path
-    # 3.3 If .jpg is not in the image pass raise the ValueError exceptions else return the image_path
-    # Note: Feel free to try out more validations  
-  
+    # 3.3 If .jpg is not in the image pass raise the ValueError exceptions else return the image_path  
+    @validates('image')
+    def validate_image(self, key, image_path):
+        if '.jpg' not in image_path:
+            raise ValueError("Image file type must be a jpg")
+        return image_path
+
 
     def __repr__(self):
         return f'<Production Title:{self.title}, Genre:{self.genre}, Budget:{self.budget}, Image:{self.image}, Director:{self.director},ongoing:{self.ongoing}>'
