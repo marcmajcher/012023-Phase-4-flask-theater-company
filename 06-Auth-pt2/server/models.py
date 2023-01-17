@@ -13,6 +13,7 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
 
 # 2.✅ Import bcyrpt from app
+from app import bcrypt
 
 
 db = SQLAlchemy()
@@ -76,21 +77,31 @@ class User(db.Model, SerializerMixin):
 
     # 3.✅ Add a column _password_hash
         # Note: When an underscore is used, it's a sing that the variable or method is for internal use.
-
+    _password_hash = db.Column(db.String)
     admin = db.Column(db.String, default=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
    
     # 6.✅ Create a hybrid_property that will protect the hash from being viewed
     # 7.✅ Navigate to app
-  
+    @hybrid_property
+    def password_hash(self):
+        raise Exception('Password hashes may not be viewed.')
+
     # 4.✅ Create a setter method called password_hash that takes self and a password.
         #4.1 Use bcyrpt to generate the password hash with bcrypt.generate_password_hash
         #4.2 Set the _password_hash to the hashed password
-
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
 
      # 5.✅ Create an authenticate method that uses bcyrpt to verify the password against the hash in the DB with bcrypt.check_password_hash 
-  
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+
     def __repr__(self):
         return f'USER: ID: {self.id}, Name {self.name}, Email: {self.email}, Admin: {self.admin}'
 
