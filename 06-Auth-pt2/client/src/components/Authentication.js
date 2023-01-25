@@ -55,16 +55,17 @@ function Authentication({updateUser}) {
           Username
           </label>
         <input type='text' name='name' value={formik.values.name} onChange={formik.handleChange} />
+        <label>
+          Password
+         </label>
+         <input type='password' name='password' value={formik.values.password} onChange={formik.handleChange} />
         {signUp&&(
           <>
           <label>
           Email
           </label>
           <input type='text' name='email' value={formik.values.email} onChange={formik.handleChange} />
-           <label>
-           Password
-           </label>
-           <input type='password' name='password' value={formik.values.password} onChange={formik.handleChange} />
+      
            </>
         )}
         <input type='submit' value={signUp?'Sign Up!':'Log In!'} />
