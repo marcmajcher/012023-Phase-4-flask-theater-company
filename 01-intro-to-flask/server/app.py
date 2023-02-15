@@ -29,6 +29,8 @@
 		# export FLASK_RUN_PORT=5555
 		# flask db init
 		# flask db revision --autogenerate -m 'Create tables productions'
+		# flask db upgrade
+
     
     # Review the database to verify your table has migrated correctly
 
