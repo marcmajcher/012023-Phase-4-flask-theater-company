@@ -126,7 +126,7 @@ api.add_resource(ProductionByID, '/productions/<int:id>')
 
 # 1.✅ User
     # A user model was added to "models.py" along with an Authentication component in client/src/components/Authentication.sj
-    # 2.1 Create a User POST route by creating a class User that inherits from Resource
+    # 2.1 Create a User POST route by creating a class Users that inherits from Resource
     # 2.2 Add the route '/users' with api.add_resource()
     # 2.3 Create a POST method
         # 2.3.1 use .get_json() to convert the request json 
