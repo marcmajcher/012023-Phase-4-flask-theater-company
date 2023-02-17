@@ -2,21 +2,22 @@
 # 📚 Review With Students:
     # CORS 
 # Set up:
-    # cd into server and run the following in the terminal
-    # export FLASK_APP=app.py
-    # export FLASK_RUN_PORT=5000
-    # flask db init
-    # flask db revision --autogenerate -m'Create tables' 
-    # flask db upgrade 
-    # python seed.py
-# Running React together 
+    # cd into server and run the following in Terminal
+        # export FLASK_APP=app.py
+        # export FLASK_RUN_PORT=5000
+        # flask db init
+        # flask db revision --autogenerate -m'Create tables' 
+        # flask db upgrade 
+        # python seed.py
+# Running React Together 
     # Verify that gunicorn and honcho have been added to the pipenv
     # Create Procfile.dev in root
         # in Procfile.dev add:
             # web: PORT=3000 npm start --prefix client
             # api: gunicorn -b 127.0.0.1:5000 --chdir ./server app:app
-        # In the terminal run
+        # In Terminal, run:
             # `honcho start -f Procfile.dev`
+
 from flask import Flask, request, make_response, abort
 from flask_migrate import Migrate
 
@@ -25,7 +26,7 @@ from werkzeug.exceptions import NotFound
 
 # 4.✅ Import CORS from flask_cors, invoke it and pass it app
 
-# 5.✅ start up the server and client and navigate to client/src/App.js
+# 5.✅ Start up the server / client and navigate to client/src/App.js
 
 from models import db, Production, CrewMember
 
