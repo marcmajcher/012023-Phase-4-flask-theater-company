@@ -1,7 +1,9 @@
 # 📚 Review With Students:
     # Validations and Invalid Data
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+
 
 # 1.✅ Import validates from sqlalchemy.orm
 
@@ -17,7 +19,9 @@ class Production(db.Model, SerializerMixin):
     )
 
     id = db.Column(db.Integer, primary_key=True)
-# 2.✅ Add Constraints to the columns      
+
+# 2.✅ Add Constraints to the Columns      
+    
     title = db.Column(db.String, nullable=False)
     genre = db.Column(db.String, nullable=False)
     budget = db.Column(db.Float)
@@ -32,10 +36,12 @@ class Production(db.Model, SerializerMixin):
     serialize_rules = ('-crew_members.production',)
 
 
-# 3.✅ Use the validates decorator to create a validation for images
-    # 3.1 pass the decorator 'image'
-    # 3.2 define a validate_image method, pass it self, key and image_path
-    # 3.3 If .jpg is not in the image pass raise the ValueError exceptions else return the image_path  
+# 3.✅ Use the "validates" decorator to create a validation for images
+    # 3.1 Pass the decorator 'image'
+    # 3.2 Define a validate_image method, pass it self, key and image_path
+    # 3.3 If .jpg is not in the image passed, raise the ValueError exceptions 
+    # else return the image_path  
+    
     @validates('image')
     def validate_image(self, key, image_path):
         if '.jpg' not in image_path:
