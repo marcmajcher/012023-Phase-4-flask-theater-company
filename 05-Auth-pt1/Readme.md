@@ -1,6 +1,6 @@
-#  REST APIs with Flask Pt. 2
+#  Authentication (Part 1)
 ## Learning Goals
-* Discuss the importance of authentication in web apps
-* Ensure students understand the difference between Identity Management (aka authentication) and Access Management (aka authorization)
-* Discuss the relationship between cookies and sessions
-* Demonstrate token-based authentication (identity management) using cookies and sessions
+* Discuss the Importance of Authentication in Web Apps
+* Ensure Students Understand the Difference between Identity Management (Authentication) and Access Management (Authorization)
+* Discuss the Relationship Between Cookies and Sessions
+* Demonstrate Token-Based Authentication (Identity Management) Using Cookies and Sessions
