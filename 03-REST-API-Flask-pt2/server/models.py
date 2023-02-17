@@ -1,6 +1,3 @@
-# Did we want to add additional steps here for students to follow along with during
-# lecture?
-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 
