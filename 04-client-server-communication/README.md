@@ -1,4 +1,4 @@
-#  REST APIs with Flask (Part 2)
+#  Client <=> Server Communication
 ## Learning Goals
 * Connect a React App to Flask API
 * Execute a GET Request and One or More POST/PATCH Reequests from a Front End Application
