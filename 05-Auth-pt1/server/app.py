@@ -213,7 +213,7 @@ class Logout(Resource):
 api.add_resource(Logout, '/logout')
 
 
-# 8.✅ We will be using sessions in the application, so let's build out a quick cookie example
+# 8 (or 1).✅ We will be using sessions in the application, so let's build out a quick cookie example
     # Creating a non RESTful route for /dark_mode
         # 8.1 Use the @app.route decorator and pass it the path '/dark_mode' and the 'methods=['GET']'
         # 8.2 Create a method called dark mode. 
