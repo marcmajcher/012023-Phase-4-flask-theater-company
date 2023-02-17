@@ -1,4 +1,4 @@
-#   Auth Pt. 2
+#   Authentiation (Part 2)
 ## Learning Goals
-* Demonstrate authorization (access management)
-* Handling authorization errors on the front end
+* Demonstrate Authorization (Access Management)
+* Handle Authorization Errors on the Front End
