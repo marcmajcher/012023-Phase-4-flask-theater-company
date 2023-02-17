@@ -21,7 +21,8 @@ from flask_cors import CORS
 # 1.✅ Import Bcrypt form flask_bcrypt
     #1.1 Invoke Bcrypt and pass it app
 
-# 2.✅ Navigate to models
+# 2.✅ Navigate to "models.py"
+    # Continue on Step 3
 
 app = Flask(__name__)
 CORS(app) 
