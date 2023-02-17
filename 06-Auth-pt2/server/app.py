@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 # 📚 Review With Students:
 # Set up:
-    # cd into server and run the following in the terminal
-    # export FLASK_APP=app.py
-    # export FLASK_RUN_PORT=5000
-    # flask db init
-    # flask db revision --autogenerate -m'Create tables' 
-    # flask db upgrade 
-    # python seed.py
-# Running React together 
-     # In the terminal run
+    # cd into server and run the following in Terminal:
+        # export FLASK_APP=app.py
+        # export FLASK_RUN_PORT=5000
+        # flask db init
+        # flask db revision --autogenerate -m'Create tables' 
+        # flask db upgrade 
+        # python seed.py
+# Running React Together 
+     # In Terminal, run:
         # `honcho start -f Procfile.dev`
+
 from flask import Flask, request, make_response, session, jsonify
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
@@ -21,7 +22,6 @@ from flask_cors import CORS
     #1.1 Invoke Bcrypt and pass it app
 
 # 2.✅ Navigate to models
-
 
 app = Flask(__name__)
 CORS(app) 
@@ -134,32 +134,27 @@ api.add_resource(ProductionByID, '/productions/<int:id>')
     #7.3 Test out your route with the client or Postman
 
 
-# 9.✅ Create a login route
-    #9.1 use add add_resource to add the login endpoint
-    #9.2 Create a post method
-        #9.2.1 Query the user from the DB with the name provided in the request
-        #9.2.2 Set the user's id to sessions under the user_id key
-        #9.2.3 Create a response to the client with the user's data
+# 8.✅ Create a Login route
+    #8.1 use add add_resource to add the login endpoint
+    #8.2 Create a post method
+        #8.2.1 Query the user from the DB with the name provided in the request
+        #8.2.2 Set the user's id to sessions under the user_id key
+        #8.2.3 Create a response to the client with the user's data
+
+# 9.✅ Create a route that checks to see if the User is currently in sessions
+    # 9.1 Use add_resource to add an authorized endpoint
+    # 9.2 Create a Get method
+        #9.2.1 Check to see if the user_id is in session
+        #9.2.2 If found query the user and send it to the client
+        #9.2.3 If not found return a 401 Unauthorized error
 
 
-
-# 10.✅ Create a route that checks to see if the user's currently in sessions
-    # 10.1 Use add_resource to add an authorized endpoint
-    # 10.2 Create a Get method
-        #10.2.1 Check to see if the user_id is in session
-        #10.2.2 If found query the user and send it to the client
-        #10.2.3 If not found return a 401 Unauthorized error
-
-
-# 8.✅ Create a logout route
-    #8.1 use add_resource to add a logout endpoint
-    #8.2 Create a delete method
+# 10.✅ Create a Logout route
+    #10.1 Use add_resource to add a logout endpoint
+    #10.2 Create a delete method
         # 8.2.1 Set the user_id in sessions to None
         # 8.2.1 Create a response with no content and a 204
-    #8.3 Test out your route with the client or Postman
-
-
-
+    #10.3 Test out your route with the client or Postman
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):
