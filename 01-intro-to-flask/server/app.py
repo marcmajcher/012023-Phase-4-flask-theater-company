@@ -36,22 +36,22 @@
 
 # 5. ✅ Navigate to `seed.rb`
 
-# 6. ✅ Routes
+# 12. ✅ Routes
     # Create your route
     
         # `@app.route('/')
         #  def index():
         #    return '<h1>Hello World!</h1>'`
 
-# 7. ✅ Run the server with `flask run` and verify your route in the browser at `http://localhost:5000/`
+# 13. ✅ Run the server with `flask run` and verify your route in the browser at `http://localhost:5000/`
 
-# 8. ✅ Create a dynamic route
+# 14. ✅ Create a dynamic route
 # `@app.route('/productions/<string:title>')
 #  def production(title):
 #     return f'<h1>{title}</h1>'`
 
 
-# 9.✅ Update the route to find a `production` by its `title` and send it to our browser
+# 15.✅ Update the route to find a `production` by its `title` and send it to our browser
     
     # Before continuing, import `jsonify` and `make_response` from Flask at the top of the file.
     
@@ -71,6 +71,10 @@
     #         jsonify(production_response),
     #         200
     #     )`    
+
+# 16.✅ View the path and host with request context
+
+# 17.✅ Use the before_request request hook, what this hook does is up to you. You could hit a breakpoint, print something to server console or anything else you can think of.
 
 # Note: If you'd like to run the application as a script instead of using `flask run`, uncomment the line below 
 # and run `python app.py`

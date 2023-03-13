@@ -16,5 +16,10 @@
 # 9.✅ Create some seeds for production and commit them to the database. 
 # 10.✅ Run in terminal:
     # `python seed.py`
-# 11.✅ navigate to debug.py
+# 11.✅ run `flask shell` in the terminal 
+    # from app import app
+    # from models import Production
+    # Check the seeds by querying Production
+# 12.✅ Navigate back to app.py  
+    
     
