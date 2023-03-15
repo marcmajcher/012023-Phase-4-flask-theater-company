@@ -4,6 +4,14 @@
     # API Fundamentals
     # MVC Architecture and Patterns / Best Practices
     # RESTful Routing
+    # | HTTP Verb 	|       Path       	| Description        	|
+    # |-----------	|:----------------:	|--------------------	|
+    # | GET       	|   /productions   	| READ all resources 	|
+    # | GET       	| /productions/:id 	| READ one resource   	|
+    # | POST      	|   /productions   	| CREATE one resource 	|
+    # | PATCH/PUT 	| /productions/:id 	| UPDATE one resource	|
+    # | DELETE    	| /productions/:id 	| DESTROY one resource 	|
+
     # Serialization
     # Postman
 
