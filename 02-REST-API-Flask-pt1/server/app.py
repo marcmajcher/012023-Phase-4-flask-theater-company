@@ -3,6 +3,14 @@
     # Review what an API is
     # Discuss MVC architecture and reinforce patterns/best practices
     # Introduce the concept of REST and how to use it to inform route names
+    # | HTTP Verb 	|       Path       	| Description        	|
+    # |-----------	|:----------------:	|--------------------	|
+    # | GET       	|   /productions   	| READ all resources 	|
+    # | GET       	| /productions/:id 	| READ one resource   	|
+    # | POST      	|   /productions   	| CREATE one resource 	|
+    # | PATCH/PUT 	| /productions/:id 	| UPDATE one resource	|
+    # | DELETE    	| /productions/:id 	| DESTROY one resource 	|
+
     # Serialization 
     # PostMan
 # Set up:

@@ -23,9 +23,12 @@ class Production(db.Model, SerializerMixin):
 
     crew_members = db.relationship('CrewMember', backref='production')
 
-    # 7.✅ Create a serialize rule that will help add our crew_members to the response
-        
-    serialize_rules = ('-crew_members.production',)
+    # 7.1 ✅ Create a serialize rule that will help add our `crew_members` to the response and remove created_at and updated_at.
+        #7.2 Demo serialize_only by only allowing title to be included in the response
+        #    once done remove or comment the serialize_only line. 
+    #serialize_only = ('title')
+    serialize_rules = ('-cast_members.production','-created_at','-updated_at')
+
 
 
     def __repr__(self):
