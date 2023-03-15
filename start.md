@@ -11,7 +11,7 @@ Included with the videos are links to the worksheet given to students and the fi
 | Lecture | Notes | Videos | Solution |
 | ------- | :---: | ------ | -------- |
 | 1. Intro To Flask    |  [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.6nc1fnq77upi)     |  [Video](https://vimeo.com/807700784)   |   [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/01-solution)       |
-| 2. Rest APIs with Flask pt1  |  [Notes](#)     |   [Video](#)      |    [Solution](#)        |
+| 2. Rest APIs with Flask pt1  |  [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.vn389t3axxgm)     |   [Video](https://vimeo.com/808098597)      |    [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/02-solution/02-REST-API-Flask-pt1)        |
 | 3. Rest APIs with Flask pt2     |  [Notes](#)     |  [Video](#)        |    [Solution](#)      |
 | 4. Client Server Communication      |   [Notes](#)    |   [Video](#)     |  [Solution](#)        |
 | 5. Auth pt1     |  [Notes](#)     |   [Video](#)     |    [Solution](#)         |
