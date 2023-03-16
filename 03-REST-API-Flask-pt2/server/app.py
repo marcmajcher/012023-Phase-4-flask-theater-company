@@ -21,7 +21,7 @@ from werkzeug.exceptions import NotFound
 
 
 
-from models import db, Production, CrewMember
+from models import db, Production, CastMember
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -45,15 +45,15 @@ class Productions(Resource):
         return response
 
     def post(self):
+        form_json = request.get_json()
         new_production = Production(
-            title=request.form['title'],
-            genre=request.form['genre'],
-            budget=int(request.form['budget']),
-            image=request.form['image'],
-            director=request.form['director'],
-            description=request.form['description'],
-            ongoing=bool(request.form['ongoing']),
-        )
+                title=form_json['title'],
+                genre=form_json['genre'],
+                budget=int(form_json['budget']),
+                image=form_json['image'],
+                director=form_json['director'],
+                description=form_json['description']
+            )
 
         db.session.add(new_production)
         db.session.commit()
@@ -71,9 +71,10 @@ api.add_resource(Productions, '/productions')
 class ProductionByID(Resource):
     def get(self,id):
         production = Production.query.filter_by(id=id).first()
-# 3.✅ If a production is not found raise the NotFound exception
+# 3.✅ If a production is not found raise the NotFound exception AND/OR use abort() to create a 404 with a customized error message
         if not production:
-            raise NotFound
+            abort(404, "The Production you were trying to update was not found.")
+
         production_dict = production.to_dict()
         response = make_response(
             production_dict,
@@ -85,20 +86,17 @@ class ProductionByID(Resource):
 # 4.✅ Patch
     # 4.1 Create a patch method that takes self and id
     # 4.2 Query the Production from the id
-    # 4.3 If the production is not found raise the NotFound exception
-    # 4.4 Loop through the request.form object and update the productions attributes. Note: Be cautions of the data types to avoid errors.
+    # 4.3 If the production is not found raise the NotFound exception AND/OR use abort() to create a 404 with a customized error message
+    # 4.4 Loop through the request json object and update the productions attributes. Note: Be cautions of the data types to avoid errors.
     # 4.5 add and commit the updated production 
     # 4.6 Create and return the response
     def patch(self, id):
         production = Production.query.filter_by(id=id).first()
         if not production:
-            raise NotFound
-
-        for attr in request.form:
-            setattr(production, attr, request.form[attr])
-
-        production.ongoing = bool(request.form['ongoing'])
-        production.budget = int(request.form['budget'])
+            abort(404, "The Production you were trying to update was not found.")
+        form_json = request.get_json()
+        for key in form_json:
+            setattr(production, key, form_json[key])
 
         db.session.add(production)
         db.session.commit()
@@ -113,13 +111,14 @@ class ProductionByID(Resource):
 # 5.✅ Delete
     # 5.1 Create a delete method, pass it self and the id
     # 5.2 Query the Production 
-    # 5.3 If the production is not found raise the NotFound exception
+    # 5.3 If the production is not found raise the NotFound exception AND/OR use abort() to create a 404 with a customized error message
     # 5.4 delete the production and commit 
     # 5.5 create a response with the status of 204 and return the response 
     def delete(self, id):
         production = Production.query.filter_by(id=id).first()
         if not production:
-            raise NotFound
+            raise abort(404, "The Production you were trying to delete was not found.")
+
         db.session.delete(production)
         db.session.commit()
 
