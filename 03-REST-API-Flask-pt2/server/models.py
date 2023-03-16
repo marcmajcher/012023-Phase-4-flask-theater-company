@@ -18,7 +18,7 @@ class Production(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     crew_members = db.relationship('CrewMember', backref='production')
         
-    serialize_rules = ('-crew_members.production',)
+    serialize_rules = ('-crew_members.production','-created_at','-updated_at')
 
 
     def __repr__(self):

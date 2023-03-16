@@ -19,7 +19,7 @@ from flask_restful import Api, Resource
 # 1.✅ Import NotFound from werkzeug.exceptions for error handling
 
 
-from models import db, Production, CrewMember
+from models import db, Production, CastMember
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -70,6 +70,7 @@ class ProductionByID(Resource):
     def get(self,id):
         production = Production.query.filter_by(id=id).first()
 # 3.✅ If a production is not found raise the NotFound exception
+    # 3.1 AND/OR use abort() to create a 404 with a customized error message
     
         production_dict = production.to_dict()
         response = make_response(
@@ -82,7 +83,7 @@ class ProductionByID(Resource):
 # 4.✅ Patch
     # 4.1 Create a patch method that takes self and id
     # 4.2 Query the Production from the id
-    # 4.3 If the production is not found raise the NotFound exception
+    # 4.3 If the production is not found raise the NotFound exception AND/OR use abort() to create a 404 with a customized error message
     # 4.4 Loop through the request.form object and update the productions attributes. Note: Be cautions of the data types to avoid errors.
     # 4.5 add and commit the updated production 
     # 4.6 Create and return the response
@@ -90,7 +91,7 @@ class ProductionByID(Resource):
 # 5.✅ Delete
     # 5.1 Create a delete method, pass it self and the id
     # 5.2 Query the Production 
-    # 5.3 If the production is not found raise the NotFound exception
+    # 5.3 If the production is not found raise the NotFound exception AND/OR use abort() to create a 404 with a customized error message
     # 5.4 delete the production and commit 
     # 5.5 create a response with the status of 204 and return the response 
   
