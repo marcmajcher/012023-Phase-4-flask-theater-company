@@ -25,10 +25,10 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from werkzeug.exceptions import NotFound
 
-# 4.✅ Import CORS from flask_cors, invoke it and pass it app
+# 5.✅ Import CORS from flask_cors, invoke it and pass it app
+#   5.1Start up the server / client and navigate to client/src/App.js
 from flask_cors import CORS
 
-# 5.✅ Start up the server / client and navigate to client/src/App.js
 
 from models import db, Production, CastMember
 
@@ -56,6 +56,7 @@ class Productions(Resource):
 
     def post(self):
         form_json = request.get_json()
+       #4.✅ Add a try except, try to create a new production. If a ValueError is raised call abort with a 422 and pass it the validation errors.
         try:
             new_production = Production(
                 title=form_json['title'],
