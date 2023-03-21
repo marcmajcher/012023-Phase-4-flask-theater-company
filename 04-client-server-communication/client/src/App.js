@@ -1,17 +1,20 @@
 // 📚 Review With Students:
     // Request response cycle
     //Note: This was build using v5 of react-router-dom
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 import {createGlobalStyle} from 'styled-components'
 import {useEffect, useState} from 'react'
 import Home from './components/Home'
 import ProductionForm from './components/ProductionForm'
+import ProductionEdit from './components/ProductionEdit'
 import Navigation from './components/Navigation'
 import ProductionDetail from './components/ProductionDetail'
 import NotFound from './components/NotFound'
 
 function App() {
   const [productions, setProductions] = useState([])
+  const [productionEdit, setProductionEdit] = useState([])
+  const history = useHistory()
   //5.✅ GET Productions
   // 5.1 Invoke the useEffect() hook
   // 5.2 Build a fetch request to '/productions'
@@ -32,20 +35,28 @@ function App() {
   // },[])
 
   const addProduction = (production) => setProductions(current => [...current,production])
-
+  const updateProduction = (updated_production) => setProductions(productions => productions.map(production => production.id == updated_production.id? updated_production : production))
+  const deleteProduction = (deleted_production) => setProductions(productions => productions.filter((production) => production.id !== deleted_production.id) )
+  const handleEdit = (production) => {
+    setProductionEdit(production)
+    history.push(`/productions/edit/${production.id}`)
+  }
   return (
     <>
-    <GlobalStyle />
-    <Navigation/>
+  <GlobalStyle />
+    <Navigation handleEdit={handleEdit}/>
       <Switch>
         <Route  path='/productions/new'>
           <ProductionForm addProduction={addProduction}/>
         </Route>
+        <Route  path='/productions/edit/:id'>
+          <ProductionEdit updateProduction={updateProduction} productionEdit={productionEdit}/>
+        </Route>
         <Route path='/productions/:id'>
-            <ProductionDetail />
+            <ProductionDetail handleEdit={handleEdit} deleteProduction={deleteProduction} />
         </Route>
         <Route exact path='/'>
-          <Home  productions={productions}/>
+          <Home  productions={productions} />
         </Route>
         <Route>
           <NotFound />
