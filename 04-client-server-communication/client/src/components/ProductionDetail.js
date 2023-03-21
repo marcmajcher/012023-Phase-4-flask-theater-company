@@ -19,6 +19,8 @@ function ProductionDetail() {
     })
   },[])
 
+  //12.✅ Create a Delete Button and add a fetch request that will delete a production 
+
   
   const {id, title, genre, image,description, crew_members} = production 
   if(error) return <h2>{error}</h2>

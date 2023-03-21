@@ -11,7 +11,10 @@ import ProductionDetail from './components/ProductionDetail'
 import NotFound from './components/NotFound'
 
 function App() {
+  //Note: This may be a good opportunity to refactor with context
   const [productions, setProductions] = useState([])
+  const [production_edit, setProductionEdit] = useState(false)
+  const history = useHistory()
   //5.✅ GET Productions
   // 5.1 Invoke the useEffect() hook
   // 5.2 Build a fetch request to '/productions'
@@ -28,20 +31,29 @@ function App() {
   // },[])
 
   const addProduction = (production) => setProductions(current => [...current,production])
+  const updateProduction = (updated_production) => setProductions(productions => productions.map(production => production.id == updated_production.id? updated_production : production))
+  const deleteProduction = (deleted_production) => setProductions(productions => productions.filter((production) => production.id !== deleted_production.id) )
+  const handleEdit = (production) => {
+    setProductionEdit(production)
+    history.push(`/productions/edit/${production.id}`)
+  }
 
   return (
     <>
     <GlobalStyle />
-    <Navigation/>
+    <Navigation handleEdit={handleEdit}/>
       <Switch>
         <Route  path='/productions/new'>
           <ProductionForm addProduction={addProduction}/>
         </Route>
+        <Route  path='/productions/edit/:id'>
+          <ProductionEdit updateProduction={updateProduction} production_edit={production_edit}/>
+        </Route>
         <Route path='/productions/:id'>
-            <ProductionDetail />
+            <ProductionDetail handleEdit={handleEdit} deleteProduction={deleteProduction} />
         </Route>
         <Route exact path='/'>
-          <Home  productions={productions}/>
+          <Home  productions={productions} />
         </Route>
         <Route>
           <NotFound />

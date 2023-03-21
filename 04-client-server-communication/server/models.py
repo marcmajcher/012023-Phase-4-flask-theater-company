@@ -36,7 +36,7 @@ class Production(db.Model, SerializerMixin):
     # return the image_path
     # Note: Feel free to try out more validations!  
   
-
+# 4.✅ navigate to app.py
     def __repr__(self):
         return f'<Production Title:{self.title}, Genre:{self.genre}, Budget:{self.budget}, Image:{self.image}, Director:{self.director},ongoing:{self.ongoing}>'
 

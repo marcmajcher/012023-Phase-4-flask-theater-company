@@ -28,6 +28,10 @@ function ProductionForm({addProduction}) {
         // 9.3.3 When the POST returns add the new production to state and redirect to the page of the new Production
  
    // 9.✅ use formik to handle the Submit and Change events
+
+    //10.✅ handle server side errors with res.ok
+    //11.✅ Navigate to ProductionEdit
+
     return (
       <div className='App'>
 
