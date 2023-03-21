@@ -12,8 +12,8 @@ Included with the videos are links to the worksheet given to students and the fi
 | ------- | :---: | ------ | -------- |
 | 1. Intro To Flask    |  [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.6nc1fnq77upi)     |  [Video](https://vimeo.com/807700784)   |   [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/01-solution)       |
 | 2. Rest APIs with Flask pt1  |  [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.vn389t3axxgm)     |   [Video](https://vimeo.com/808098597)      |    [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/02-solution/02-REST-API-Flask-pt1)        |
-| 3. Rest APIs with Flask pt2     |  [Notes](#)     |  [Video](#)        |    [Solution](#)      |
-| 4. Client Server Communication      |   [Notes](#)    |   [Video](#)     |  [Solution](#)        |
+| 3. Rest APIs with Flask pt2     |  [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.j5nclueteidq)     |  [Video](https://vimeo.com/808493208)        |    [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/main/03-REST-API-Flask-pt2)      |
+| 4. Client Server Communication      |   [Notes](https://docs.google.com/document/d/1vYLMPgKqkaIcd_wbEBkVtYwBjfGav_7KV6J6S2r52DQ/edit#bookmark=kix.15iol9bjtawr)    |   [Video](https://vimeo.com/808845609)   [Video2](https://vimeo.com/8088820579)   |  [Solution](https://github.com/learn-co-curriculum/SENG-LIVE-Phase-4-flask-010923/tree/04-solution/04-client-server-communication)        |
 | 5. Auth pt1     |  [Notes](#)     |   [Video](#)     |    [Solution](#)         |
 | 6. Auth p2     |   [Notes](#)    |   [Video](#)     |   [Solution](#)       |
 | 7. Deployment     |   [Notes](#)    |    [Video](#)    |    [Solution](#)      |
