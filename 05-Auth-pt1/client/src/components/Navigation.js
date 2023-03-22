@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
-function Navigation({updateUser}) {
+function Navigation({updateUser, user}) {
  const [menu, setMenu] = useState(false)
  const history = useHistory()
 
@@ -12,19 +12,20 @@ function Navigation({updateUser}) {
   //6.1 On a successful delete clear the user from state (updateUser is passed down from app via props) and redirect back to the authentication route
 // 7.✅ Head back to server/app.py to build a route that will keep our user logged in with sessions
  const handleLogout = () => {
-    fetch("/logout", {
-      method: "DELETE",
-    }).then(res => {
-      if(res.ok){
-          updateUser(null)
-          history.push('/authentication')
-      }
-    })
+  fetch('/logout',{
+    method:'DELETE'
+  }).then(res => {
+    if(res.ok){
+      updateUser(null)
+      history.push('/authentication')
+    }
+  })
  }
 
     return (
         <Nav> 
          <NavH1>Flatiron Theater Company</NavH1>
+         {user&&<h3>{user.name.toUpperCase()}</h3>}
          <Menu>
            {!menu?
            <div onClick={() => setMenu(!menu)}>
@@ -32,10 +33,11 @@ function Navigation({updateUser}) {
            </div>:
            <ul>
             <li onClick={() => setMenu(!menu)}>x</li>
-            <li><Link to='/productions/new'>New Production</Link></li>
+            {!user.admin&&<li><Link to='/productions/new'>New Production</Link></li>}
             <li><Link to='/'> Home</Link></li>
-            <li><Link to='/authentication'> Login/Signup</Link></li>
-            <li onClick={handleLogout}> Logout </li>
+            {!user? <li><Link to='/authentication'> Login/Signup</Link></li>:<li onClick={handleLogout}> Logout </li>}
+           
+  
            </ul>
            }
          </Menu>
@@ -59,10 +61,11 @@ const Nav = styled.div`
 const Menu = styled.div`
   display: flex;
   align-items: center;
+  font-family:Arial;
   a{
     text-decoration: none;
     color:white;
-    font-family:Arial;
+ 
   }
   a:hover{
     color:pink
