@@ -7,6 +7,7 @@ import * as yup from "yup"
 
 function Authentication({updateUser}) {
   const [signUp, setSignUp] = useState(false)
+  
   const history = useHistory()
 
   const handleClick = () => setSignUp((signUp) => !signUp)
@@ -28,15 +29,19 @@ function Authentication({updateUser}) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(values, null, 2),
+          body: JSON.stringify(values),
         })
         .then(res => {
           if(res.ok){
             res.json().then(user => {
+              console.log(user)
               updateUser(user)
               history.push('/')
             })
           } else {
+            //12✅ Handle user errors if Auth fails
+              //12.1 add errors to state
+              //12.2 conditionally render the errors in jsx
             res.json().then(console.log)
           }
         })
@@ -46,7 +51,7 @@ function Authentication({updateUser}) {
 
     return (
         <> 
-        <h2 style={{color:'red'}}> {formik.errors.name}</h2>
+        {"Render Errors Here"}
         <h2>Please Log in or Sign up!</h2>
         <h2>{signUp?'Already a member?':'Not a member?'}</h2>
         <button onClick={handleClick}>{signUp?'Log In!':'Register now!'}</button>
@@ -55,16 +60,17 @@ function Authentication({updateUser}) {
           Username
           </label>
         <input type='text' name='name' value={formik.values.name} onChange={formik.handleChange} />
+        <label>
+           Password
+           </label>
+           <input type='password' name='password' value={formik.values.password} onChange={formik.handleChange} />
         {signUp&&(
           <>
           <label>
           Email
           </label>
           <input type='text' name='email' value={formik.values.email} onChange={formik.handleChange} />
-           <label>
-           Password
-           </label>
-           <input type='password' name='password' value={formik.values.password} onChange={formik.handleChange} />
+           
            </>
         )}
         <input type='submit' value={signUp?'Sign Up!':'Log In!'} />
