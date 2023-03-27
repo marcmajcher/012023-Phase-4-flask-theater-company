@@ -12,7 +12,7 @@
      # In Terminal, run:
         # `honcho start -f Procfile.dev`
 
-from flask import Flask, request, make_response, session, jsonify
+from flask import Flask, request, make_response, session, jsonify, abort
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from werkzeug.exceptions import NotFound, Unauthorized
@@ -21,15 +21,15 @@ from flask_cors import CORS
 # 1.✅ Import Bcrypt form flask_bcrypt
     #1.1 Invoke Bcrypt and pass it app
 
+
+
 # 2.✅ Navigate to "models.py"
     # Continue on Step 3
-
-from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 CORS(app) 
 bcrypt = Bcrypt(app)
-from models import db, Production, CrewMember, User
+from models import db, Production, CastMember, User
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -56,14 +56,17 @@ class Productions(Resource):
 
     def post(self):
         form_json = request.get_json()
-        new_production = Production(
-            title=form_json['title'],
-            genre=form_json['genre'],
-            budget=int(form_json['budget']),
-            image=form_json['image'],
-            director=form_json['director'],
-            description=form_json['description']
-        )
+        try:
+            new_production = Production(
+                title=form_json['title'],
+                genre=form_json['genre'],
+                budget=int(form_json['budget']),
+                image=form_json['image'],
+                director=form_json['director'],
+                description=form_json['description']
+            )
+        except ValueError as e:
+            abort(422,e.args[0])
 
         db.session.add(new_production)
         db.session.commit()
@@ -125,91 +128,93 @@ class ProductionByID(Resource):
         return response
 api.add_resource(ProductionByID, '/productions/<int:id>')
 
-# 8.✅ Create a Signup route
-    #8.1 Use add_resource to add a new endpoint '/signup' 
-    #8.2 The signup route should have a post method
-        #8.2.1 Get the values from the request body with get_json
-        #8.2.2 Create a new user, however only pass in the name, email and admin values
-        #8.2.3 Call the password_hash method on the new user and set it to the password from the request
-        #8.2.4 Add and commit
-        #8.2.5 Add the user id to session under the key of user_id
-        #8.2.6 send the new user back to the client with a status of 201
-    #8.3 Test out your route with the client or Postman
-    
-class Signup(Resource):
-     def post(self):
-        
-        name = request.get_json()['name']
-        email = request.get_json()['name']
-        password = request.get_json()['password']
+# 10.✅ Create a Signup route
+    #10.1 Use add_resource to add a new endpoint '/signup' 
+    #10.2 The signup route should have a post method
+        #10.2.1 Get the values from the request body with get_json
+        #10.2.2 Create a new user, however only pass in the name, email and admin values
+        #10.2.3 Call the password_hash method on the new user and set it to the password from the request
+        #10.2.4 Add and commit
+        #10.2.5 Add the user id to session under the key of user_id
+        #10.2.6 send the new user back to the client with a status of 201
+    #10.3 Test out your route with the client or Postman
 
-        new_user = User(name=name, email=email, admin=False)
-        new_user.password_hash = password
+class Signup(Resource):
+    def post(self):
+        form_json = request.get_json()
+        new_user = User(name=form_json['name'], email=form_json['email'])
+        #Hashes our password and saves it to _password_hash
+        new_user.password_hash = form_json['password']
+
         db.session.add(new_user)
         db.session.commit()
 
-        session['user_id'] = new_user.id
-                
-        return new_user.to_dict(), 201
-
-api.add_resource(Signup, '/signup', endpoint='signup')
-
-# 9.✅ Create a Login route
-    #9.1 Use add add_resource to add the login endpoint
-    #9.2 Create a post method
-        #9.2.1 Query the user from the DB with the name provided in the request
-        #9.2.2 Set the user's id to sessions under the user_id key
-        #9.2.3 Create a response to the client with the user's data
-class Login(Resource):
-
-    def post(self):
-        user = User.query.filter(User.name == request.get_json()['name']).first()
-        session['user_id'] = user.id
-        user_dict = user.to_dict()
         response = make_response(
-            user_dict,
-            200,
+            new_user.to_dict(),
+            201
         )
         return response
+api.add_resource(Signup, '/signup')
 
-api.add_resource(Login, '/login', endpoint='login')
+# User.query.order_by(User.id.desc()).first()._password_hash
+# 11.✅ Create a Login route
+    #11.1 use add add_resource to add the login endpoint
+    #11.2 Create a post method
+        #11.2.1 Query the user from the DB with the name provided in the request
+        #11.2.2 Set the user's id to sessions under the user_id key
+        #11.2.3 Create a response to the client with the user's data
 
-# 10.✅ Create a route that checks to see if the user is currently in sessions
-    # 10.1 Use add_resource to add an authorized endpoint
-    # 10.2 Create a Get method
-        #10.2.1 Check to see if the user_id is in session
-        #10.2.2 If found query the user and send it to the client
-        #10.2.3 If not found return a 401 Unauthorized error
+class Login(Resource):
+    def post(self):
+        try:
+            user = User.query.filter_by(name=request.get_json()['name']).first()
+            if user.authenticate(request.get_json()['password']):
+                session['user_id'] = user.id
+                response = make_response(
+                    user.to_dict(),
+                    200
+                )
+                return response
+        except:
+            abort(401, "Incorrect Username or Password")
+
+api.add_resource(Login, '/login')
+
+#12✅ Head to client/components/authenticate 
+
+# 13.✅ Create a route that checks to see if the User is currently in sessions
+    # 13.1 Use add_resource to add an authorized endpoint
+    # 13.2 Create a Get method
+        #13.2.1 Check to see if the user_id is in session
+        #13.2.2 If found query the user and send it to the client
+        #13.2.3 If not found return a 401 Unauthorized error
 class AuthorizedSession(Resource):
     def get(self):
+        try:
+            user = User.query.filter_by(id=session['user_id']).first()
+            response = make_response(
+                user.to_dict(),
+                200
+            )
+            return response
+        except:
+            abort(401, "Unauthorized")
 
-        if session.get('user_id'):
-            
-            user = User.query.filter(User.id == session['user_id']).first()
-            
-            return user.to_dict(), 200
-            
-        else:
-            raise Unauthorized
+api.add_resource(AuthorizedSession, '/authorized')
 
-
-api.add_resource(AuthorizedSession, '/authorized', endpoint='authorized')
-
-# 11.✅ Create a logout route
-    #11.1 use add_resource to add a logout endpoint
-    #11.2 Create a delete method
-        #11.2.1 Set the user_id in sessions to None
-        #11.2.1 Create a response with no content and a 204
-    #11.3 Test out your route with the client or Postman
+# 14.✅ Create a Logout route
+    #14.1 Use add_resource to add a logout endpoint
+    #14.2 Create a delete method
+        # 14.2.1 Set the user_id in sessions to None
+        # 14.2.1 Create a response with no content and a 204
+    #14.3 Test out your route with the client or Postman
 
 class Logout(Resource):
     def delete(self):
-        session['user_id'] = None
-        response = make_response('',204,)
+        session['user_id'] = None 
+        response = make_response('',204)
         return response
-
-api.add_resource(Logout, '/logout', endpoint='logout')
-
+api.add_resource(Logout, '/logout')
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):
