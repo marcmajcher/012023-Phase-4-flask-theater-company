@@ -131,12 +131,12 @@ api.add_resource(ProductionByID, '/productions/<int:id>')
 # 10.✅ Create a Signup route
     #10.1 Use add_resource to add a new endpoint '/signup' 
     #10.2 The signup route should have a post method
-        #14.2.1 Get the values from the request body with get_json
-        #14.2.2 Create a new user, however only pass in the name, email and admin values
-        #14.2.3 Call the password_hash method on the new user and set it to the password from the request
-        #14.2.4 Add and commit
-        #14.2.5 Add the user id to session under the key of user_id
-        #14.2.6 send the new user back to the client with a status of 201
+        #10.2.1 Get the values from the request body with get_json
+        #10.2.2 Create a new user, however only pass in the name, email and admin values
+        #10.2.3 Call the password_hash method on the new user and set it to the password from the request
+        #10.2.4 Add and commit
+        #10.2.5 Add the user id to session under the key of user_id
+        #10.2.6 send the new user back to the client with a status of 201
     #10.3 Test out your route with the client or Postman
 
 
@@ -145,9 +145,9 @@ api.add_resource(ProductionByID, '/productions/<int:id>')
 # 11.✅ Create a Login route
     #11.1 use add add_resource to add the login endpoint
     #11.2 Create a post method
-        #15.2.1 Query the user from the DB with the name provided in the request
-        #15.2.2 Set the user's id to sessions under the user_id key
-        #15.2.3 Create a response to the client with the user's data
+        #11.2.1 Query the user from the DB with the name provided in the request
+        #11.2.2 Set the user's id to sessions under the user_id key
+        #11.2.3 Create a response to the client with the user's data
 
 #12 Head to client/components/authenticate 
 
@@ -163,8 +163,8 @@ api.add_resource(ProductionByID, '/productions/<int:id>')
 # 14.✅ Create a Logout route
     #14.1 Use add_resource to add a logout endpoint
     #14.2 Create a delete method
-        # 8.2.1 Set the user_id in sessions to None
-        # 8.2.1 Create a response with no content and a 204
+        # 14.2.1 Set the user_id in sessions to None
+        # 14.2.1 Create a response with no content and a 204
     #14.3 Test out your route with the client or Postman
 
 # 14.✅ Navigate to client navigation
